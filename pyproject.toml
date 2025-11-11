@@ -1,0 +1,19 @@
+[project]
+name = "sfms-12-cs-class-prog"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Raja",email = "yashrjskasana2007@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "mysql-connector-python (>=9.5.0,<10.0.0)"
+]
+
+[tool.poetry]
+packages = [{include = "sfms_12_cs_class_prog", from = "src"}]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
