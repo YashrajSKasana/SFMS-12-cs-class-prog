@@ -1,4 +1,4 @@
-from menu import TerminalMenu
+from .menu import TerminalMenu
 import os
 
 class Interface:
