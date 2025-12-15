@@ -1,8 +1,6 @@
 import mysql.connector
 import getpass as gp
-# TODO
-# * saperste rec_ID in a saparate function with rec_ID existence chick
-# * make get_head get_record in normal methord and remove cur form parameters
+
 class DB():
   def __init__(self, host, user, password, database):
     self.tables = ["main", "AdminCred"]
@@ -12,10 +10,6 @@ class DB():
     self.database = database
     self.db = self.connect()
     self.cur = self.db.cursor()
-
-  @staticmethod
-  def line():
-    print('-'*40)
 
   @staticmethod
   def ask_for(info):
@@ -38,29 +32,23 @@ class DB():
     print("Connection established successfully :>")
     return db
 
-  @staticmethod
-  def get_head(cur, table):
-    cur.execute(f"SHOW COLUMNS FROM `{table}`")
+  def get_head(self,ti):
+    table = self.tables[ti]
+    self.cur.execute(f"SHOW COLUMNS FROM `{table}`")
     return [col[0] for col in cur.fetchall()]
 
-#   @staticmethod
-#   def get_record(cur, table, key_column, key_value):
-#     query = f"SELECT * FROM `{table}` WHERE `{key_column}`=%s"
-#     cur.execute(query, (key_value,))
-#     record = cur.fetchone()
-#     return record
-  @staticmethod
-  def get_record(cur, table, key_column, key_value):
-    query = f"SELECT * FROM {table} WHERE {key_column} = %s"
-    cur.execute(query, (key_value,))
-    record = cur.fetchone()
+  def get_record(self, ti, pk):
+    table = self.tables[ti]
+    rec_ID = input(f"Enter {pk}: ")
+    query = f"SELECT * FROM {table} WHERE {pk} = %s"
+    self.cur.execute(query, (rec_ID,))
+    record = self.cur.fetchone()
     return record
+
   def add_record(self):
-    table = self.tables[0]
-    head = self.get_head(self.cur, table)
+    head = self.get_head(0)
 
     print()
-    self.line()
     head_parameters = self.ask_for(head)
     values = [head_parameters[h] for h in head]
 
@@ -69,23 +57,17 @@ class DB():
     print("Record added successfully :>")
 
   def display_record(self):
-    table = self.tables[0]
-    pk = "AdmissionNo"
-
-    rec_ID = input(f"Enter {pk}: ")
-    rec = self.get_record(self.cur, table, pk, rec_ID)
+    rec = self.get_record(0,"AdmissionNo")
     if rec is None:
       print(f"There is no record with primary key '{rec_ID}' :<")
     else:
-      head = self.get_head(self.cur, table)
-      self.line()
+      head = self.get_head(0)
       for row, col in zip(head, rec):
         print(f"{row}: {col}")
 
   def del_record(self):
     table = self.tables[0]
     pk = "AdmissionNo"
-
     rec_ID = input(f"Enter {pk}: ")
 
     query = f"DELETE FROM `{table}` WHERE {pk} = %s"
@@ -94,17 +76,12 @@ class DB():
 
 
   def change_record(self):
-    table = self.tables[0]
-    pk = "AdmissionNo"
-
-    rec_ID = input(f"Enter {pk}: ")
-    rec = self.get_record(self.cur, table, pk, rec_ID)
+    rec = self.get_record(0,"AdmissionNo")
     if rec is None:
       print("Record not found :<")
       return
-    head = self.get_head(self.cur, table)
+    head = self.get_head(0)
     pk_index = head.index(pk)
-    self.line()
     print("Leave field empty to keep old value.")
 
     update_cols = []
