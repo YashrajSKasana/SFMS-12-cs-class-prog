@@ -1,6 +1,7 @@
 from simple_term_menu import TerminalMenu
+import os
 
-class MenuInterface:
+class Interface:
   def __init__(self, db):
     self.db = db
     self.primary_menu_options = [
@@ -20,6 +21,28 @@ class MenuInterface:
       "Chnage detalis":self.db.change_record,
       "Save Changes":self.db.save
     }
+  @staticmethod
+  def LOGO():
+    logo = """
+    +--------------------------------------------------------+
+    |                                                        |
+    |                                                        |
+    |    █████████  ██████   ██████ ███████████  █████████   |
+    |   ███░░░░░███░░██████ ██████ ░░███░░░░░░█ ███░░░░░███  |
+    |  ░███    ░░░  ░███░█████░███  ░███   █ ░ ░███    ░░░   |
+    |  ░░█████████  ░███░░███ ░███  ░███████   ░░█████████   |
+    |   ░░░░░░░░███ ░███ ░░░  ░███  ░███░░░█    ░░░░░░░░███  |
+    |   ███    ░███ ░███      ░███  ░███  ░     ███    ░███  |
+    |  ░░█████████  █████     █████ █████      ░░█████████   |
+    |   ░░░░░░░░░  ░░░░░     ░░░░░ ░░░░░        ░░░░░░░░░    |
+    |                                                        |
+    |                                                        |
+    +--------------------------------------------------------+
+    """
+
+    print(logo)
+    print()
+    print()
 
   def run(self):
     primary_menu = TerminalMenu(
@@ -27,18 +50,20 @@ class MenuInterface:
       status_bar=" Press Q or Esc to quit"
     )
 
-    quit_flag = False
-    while not quit_flag:
+    while True:
+      os.system('cls' if os.name == 'nt' else 'clear')
+      self.LOGO()
       index = primary_menu.show()
 
       if index is None:
-        quit_flag = True
+        os.system('cls' if os.name == 'nt' else 'clear')
         self.db.save()
         break
 
       option = self.primary_menu_options[index]
       func = self.option_func[option]
       func()
+      input("Enter to go back: ")
 
   def admin_menu(self):
     is_auth = self.db.authorisation()
@@ -50,16 +75,18 @@ class MenuInterface:
       status_bar=" Press Q or Esc to quit"
     )
 
-    quit_flag = False
-    while not quit_flag:
-      index = primary_menu.show()
+    while True:
+      os.system('cls' if os.name == 'nt' else 'clear')
+      self.LOGO()
+      index = admin_menu.show()
 
       if index is None:
-        quit_flag = True
+        os.system('cls' if os.name == 'nt' else 'clear')
         self.db.save()
         break
 
-      option = self.primary_menu_options[index]
+      option = self.admin_menu_options[index]
       func = self.option_func[option]
       func()
+      input("Enter to go back: ")
 
