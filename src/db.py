@@ -35,7 +35,7 @@ class DB():
   def get_head(self,ti):
     table = self.tables[ti]
     self.cur.execute(f"SHOW COLUMNS FROM `{table}`")
-    return [col[0] for col in cur.fetchall()]
+    return [col[0] for col in self.cur.fetchall()]
 
   def get_record(self, ti, pk):
     table = self.tables[ti]
