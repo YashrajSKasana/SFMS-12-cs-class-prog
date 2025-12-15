@@ -65,7 +65,7 @@ class DB():
 
   def display_record(self):
     table = self.tables[0]
-    pk = "Admination No"
+    pk = "AdminationNo"
 
     rec_ID = input(f"Enter {pk}: ")
     rec = self.get_record(self.cur, table, pk, rec_ID)
@@ -79,7 +79,7 @@ class DB():
 
   def del_record(self):
     table = self.tables[0]
-    pk = "Admination No"
+    pk = "AdminationNo"
 
     rec_ID = input(f"Enter {pk}: ")
 
@@ -90,7 +90,7 @@ class DB():
 
   def change_record(self):
     table = self.tables[0]
-    pk = "Admination No"
+    pk = "AdminationNo"
 
     rec_ID = input(f"Enter {pk}: ")
     rec = self.get_record(self.cur, table, pk, rec_ID)
