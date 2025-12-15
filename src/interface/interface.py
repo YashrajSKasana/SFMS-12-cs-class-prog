@@ -1,14 +1,16 @@
-from simple_term_menu import TerminalMenu
+from menu import TerminalMenu
 import os
 
 class Interface:
   def __init__(self, db):
     self.db = db
     self.primary_menu_options = [
+      "Quit",
       "See your fee detals",
       "Admin options"
     ]
     self.admin_menu_options = [
+      "Quit",
       "Add new student",
       "Chnage detalis",
       "Save Changes"
@@ -23,6 +25,7 @@ class Interface:
     }
   @staticmethod
   def LOGO():
+    os.system('cls' if os.name == 'nt' else 'clear')
     logo = """
     +--------------------------------------------------------+
     |                                                        |
@@ -47,18 +50,20 @@ class Interface:
   def run(self):
     primary_menu = TerminalMenu(
       self.primary_menu_options,
-      status_bar=" Press Q or Esc to quit"
     )
 
     while True:
-      os.system('cls' if os.name == 'nt' else 'clear')
       self.LOGO()
-      index = primary_menu.show()
 
+      index = primary_menu.show()
       if index is None:
+        continue
+      elif index == 0:
         os.system('cls' if os.name == 'nt' else 'clear')
         self.db.save()
         break
+
+      self.LOGO()
 
       option = self.primary_menu_options[index]
       func = self.option_func[option]
@@ -69,21 +74,24 @@ class Interface:
     is_auth = self.db.authorisation()
     if not is_auth:
       print("Authorisation faild :<")
+      input("Enter to go back: ")
       return
     admin_menu = TerminalMenu(
       self.admin_menu_options,
-      status_bar=" Press Q or Esc to quit"
     )
 
     while True:
-      os.system('cls' if os.name == 'nt' else 'clear')
       self.LOGO()
-      index = admin_menu.show()
 
+      index = admin_menu.show()
       if index is None:
+        continue
+      elif index == 0:
         os.system('cls' if os.name == 'nt' else 'clear')
         self.db.save()
         break
+
+      self.LOGO()
 
       option = self.admin_menu_options[index]
       func = self.option_func[option]
