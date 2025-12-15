@@ -13,14 +13,16 @@ class Interface:
       "Quit",
       "Add new student",
       "Chnage detalis",
+      "Remove Student detalis",
       "Save Changes"
     ]
 
     self.option_func = {
-      "See your fee detals": self.db.display_record,
+      "See your fee detalis": self.db.display_record,
       "Admin options": self.admin_menu,
       "Add new student":self.db.add_record,
       "Chnage detalis":self.db.change_record,
+      "Remove Student detalis":self.db.del_record,
       "Save Changes":self.db.save
     }
   @staticmethod
