@@ -1,3 +1,4 @@
-.venv
-__init__.py
-
+.venv/
+**/__init__.py
+.vscode/
+.venv/

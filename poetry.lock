@@ -43,19 +43,7 @@ gssapi = ["gssapi (==1.8.3)"]
 telemetry = ["opentelemetry-api (==1.33.1)", "opentelemetry-exporter-otlp-proto-http (==1.33.1)", "opentelemetry-sdk (==1.33.1)"]
 webauthn = ["fido2 (==1.1.2)"]
 
-[[package]]
-name = "simple-term-menu"
-version = "1.6.6"
-description = "A Python package which creates simple interactive menus on the command line."
-optional = false
-python-versions = "~=3.5"
-groups = ["main"]
-files = [
-    {file = "simple_term_menu-1.6.6-py3-none-any.whl", hash = "sha256:c2a869efa7a9f7e4a9c25858b42ca6974034951c137d5e281f5339b06ed8c9c2"},
-    {file = "simple_term_menu-1.6.6.tar.gz", hash = "sha256:9813d36f5749d62d200a5599b1ec88469c71378312adc084c00c00bfbb383893"},
-]
-
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.14,<4.0"
-content-hash = "3cfa4c83c7abed76b47d82082b9f86aee6fe0c35e129314b9639ab6fc563752e"
+content-hash = "67d787b096e1b32ea0775f8fdb94f470c2958b6610ef9f2e554ae9a8e38b68a2"
