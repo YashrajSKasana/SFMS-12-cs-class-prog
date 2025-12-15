@@ -2,7 +2,7 @@ import os.path as path
 import json
 from interface.interface import Interface
 from db.db import DB
-CONNECTION_INFO_FILE = r"./info_files/connection.json"
+CONNECTION_INFO_FILE = r"../info_files/connection.json"
 def get_connetion_cred():
   with open(CONNECTION_INFO_FILE) as f:
     crad = json.load(f)

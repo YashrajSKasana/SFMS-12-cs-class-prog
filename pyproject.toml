@@ -13,7 +13,7 @@ dependencies = [
 ]
 
 [tool.poetry]
-packages = [{include = "sfms_12_cs_class_prog", from = "src"}]
+packages = [{include = "src", from = "."}]
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
