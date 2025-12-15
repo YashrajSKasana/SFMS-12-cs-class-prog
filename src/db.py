@@ -43,13 +43,18 @@ class DB():
     cur.execute(f"SHOW COLUMNS FROM `{table}`")
     return [col[0] for col in cur.fetchall()]
 
+#   @staticmethod
+#   def get_record(cur, table, key_column, key_value):
+#     query = f"SELECT * FROM `{table}` WHERE `{key_column}`=%s"
+#     cur.execute(query, (key_value,))
+#     record = cur.fetchone()
+#     return record
   @staticmethod
   def get_record(cur, table, key_column, key_value):
-    query = f"SELECT * FROM `{table}` WHERE `{key_column}`=%s"
+    query = f"SELECT * FROM {table} WHERE {key_column} = %s"
     cur.execute(query, (key_value,))
     record = cur.fetchone()
     return record
-
   def add_record(self):
     table = self.tables[0]
     head = self.get_head(self.cur, table)
