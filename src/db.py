@@ -45,9 +45,9 @@ class DB():
     record = self.cur.fetchone()
     return record
 
-  def add_record(self):
-    head = self.get_head(0)
-
+  def add_record(self, ti):
+    head = self.get_head(ti)
+    table = self.tables[ti]
     print()
     head_parameters = self.ask_for(head)
     values = [head_parameters[h] for h in head]
@@ -56,18 +56,8 @@ class DB():
     self.cur.execute(query, values)
     print("Record added successfully :>")
 
-  def display_record(self):
-    rec = self.get_record(0,"AdmissionNo")
-    if rec is None:
-      print(f"There is no record with primary key '{rec_ID}' :<")
-    else:
-      head = self.get_head(0)
-      for row, col in zip(head, rec):
-        print(f"{row}: {col}")
-
-  def del_record(self):
-    table = self.tables[0]
-    pk = "AdmissionNo"
+  def del_record(self,ti,pk):
+    table = self.tables[ti]
     rec_ID = input(f"Enter {pk}: ")
 
     query = f"DELETE FROM `{table}` WHERE {pk} = %s"
@@ -75,14 +65,15 @@ class DB():
     print("Record deleted successfully :>")
 
 
-  def change_record(self):
-    rec = self.get_record(0,"AdmissionNo")
+  def change_record(self,ti,pk):
+    rec = self.get_record(ti,pk)
     if rec is None:
       print("Record not found :<")
       return
-    head = self.get_head(0)
+    head = self.get_head(ti)
     pk_index = head.index(pk)
     print("Leave field empty to keep old value.")
+    print()
 
     update_cols = []
     update_vals = []
@@ -112,3 +103,18 @@ class DB():
     query = f"SELECT 1 FROM `{table}` WHERE Name=%s AND Passward=%s"
     self.cur.execute(query, (admin_name, passwd))
     return self.cur.fetchone() is not None
+
+def make_recipt(self):
+    rec = self.db.get_record(0, "AdmissionNo")
+    if rec is None:
+        print("There is no record with given Admission No :<")
+        return
+    else:
+        output_dir = input("Enter Path To Output Directory: ")
+        output_dir = "." if output_dir == "" else output_dir
+        head = self.db.get_head(0)
+        file = rec[head.index("StudentName")] + ".txt"
+
+    with open(rf"{output_dir}/{file}", "a") as f:
+        for row, col in zip(head, rec):
+            f.write(f"{row}: {col}\n")
