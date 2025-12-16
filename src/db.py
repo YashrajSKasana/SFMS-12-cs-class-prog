@@ -104,17 +104,17 @@ class DB():
     self.cur.execute(query, (admin_name, passwd))
     return self.cur.fetchone() is not None
 
-def make_recipt(self):
-    rec = self.db.get_record(0, "AdmissionNo")
+  def make_recipt(self):
+    rec = self.get_record(0, "AdmissionNo")
     if rec is None:
-        print("There is no record with given Admission No :<")
-        return
+      print("There is no record with given Admission No :<")
+      return
     else:
-        output_dir = input("Enter Path To Output Directory: ")
-        output_dir = "." if output_dir == "" else output_dir
-        head = self.db.get_head(0)
-        file = rec[head.index("StudentName")] + ".txt"
-
+      output_dir = input("Enter Path To Output Directory: ")
+      output_dir = "." if output_dir == "" else output_dir
+      head = self.get_head(0)
+      file = rec[head.index("StudentName")] + ".txt"
+  
     with open(rf"{output_dir}/{file}", "a") as f:
-        for row, col in zip(head, rec):
-            f.write(f"{row}: {col}\n")
+      for row, col in zip(head, rec):
+        f.write(f"{row}: {col}\n")

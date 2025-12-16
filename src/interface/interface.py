@@ -13,7 +13,7 @@ class Interface:
     self.db = db
     self.primary_menu_options = [
       "Quit",
-      "See Your Fee detalis",
+      "See Your Fee Detalis",
       "Git Recipt",
       "Admin Options"
     ]
