@@ -3,18 +3,18 @@ import os
 
 class Interface:
 
-  add_student = lambda: self.db.add_record(0)
-  rm_student = lambda: self.db.del_record(0, "AdmissionNo")
-  chang_student_details = lambda: self.db.change_record(0, "AdmissionNo")
-  add_admin = lambda: self.db.add_record(1)
-  rm_admin = lambda: self.db.del_record(1, "Name")
+  add_student = lambda self: self.db.add_record(0)
+  rm_student = lambda self: self.db.del_record(0, "AdmissionNo")
+  chang_student_details = lambda self: self.db.change_record(0, "AdmissionNo")
+  add_admin = lambda self: self.db.add_record(1)
+  rm_admin = lambda self: self.db.del_record(1, "Name")
 
   def __init__(self, db):
     self.db = db
     self.primary_menu_options = [
       "Quit",
       "See Your Fee Detalis",
-      "Git Recipt",
+      "Get Recipt",
       "Admin Options"
     ]
     self.admin_menu_options = [
@@ -23,19 +23,19 @@ class Interface:
       "Chnage Student Detalis",
       "Remove Student Detalis",
       "Add Admin",
-      "remove Admin",
+      "Remove Admin",
       "Save Changes"
     ]
     self.option_func = {
-      "See Your Fee Detalis": self.student_detalis,
-      "Admin Options": self.admin_menu,
-      "Git Recipt":self.db.make_recipt,
-      "Add New Student":self.add_student,
-      "Chnage Student Detalis":self.chang_student_details,
-      "Remove Student Detalis":self.rm_student,
-      "Add Admin":self.add_admin,
-      "Remove Admin":self.rm_admin,
-      "Save Changes":self.db.save
+      "see your fee detalis": self.student_detalis,
+      "admin options": self.admin_menu,
+      "get recipt":self.db.make_recipt,
+      "add new student":self.add_student,
+      "chnage student detalis":self.chang_student_details,
+      "remove student detalis":self.rm_student,
+      "add admin":self.add_admin,
+      "remove admin":self.rm_admin,
+      "save changes":self.db.save
     }
 
   @staticmethod
@@ -81,7 +81,7 @@ class Interface:
       self.LOGO()
 
       option = self.primary_menu_options[index]
-      func = self.option_func[option]
+      func = self.option_func[option.lower()]
       func()
       input("Enter to go back: ")
 
@@ -89,7 +89,6 @@ class Interface:
     is_auth = self.db.authorisation()
     if not is_auth:
       print("Authorisation faild :<")
-      input("Enter to go back: ")
       return
     admin_menu = TerminalMenu(
       self.admin_menu_options,
@@ -109,7 +108,7 @@ class Interface:
       self.LOGO()
 
       option = self.admin_menu_options[index]
-      func = self.option_func[option]
+      func = self.option_func[option.lower()]
       func()
       input("Enter to go back: ")
 

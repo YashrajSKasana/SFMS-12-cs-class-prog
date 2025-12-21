@@ -37,13 +37,16 @@ class DB():
     self.cur.execute(f"SHOW COLUMNS FROM `{table}`")
     return [col[0] for col in self.cur.fetchall()]
 
-  def get_record(self, ti, pk):
+  def get_record(self, ti, pk, get_rec_ID=False):
     table = self.tables[ti]
     rec_ID = input(f"Enter {pk}: ")
     query = f"SELECT * FROM {table} WHERE {pk} = %s"
     self.cur.execute(query, (rec_ID,))
     record = self.cur.fetchone()
-    return record
+    if get_rec_ID:
+      return record, rec_ID
+    else:
+      return record
 
   def add_record(self, ti):
     head = self.get_head(ti)
@@ -66,7 +69,8 @@ class DB():
 
 
   def change_record(self,ti,pk):
-    rec = self.get_record(ti,pk)
+    table = self.tables[ti]
+    rec,rec_ID = self.get_record(ti,pk,get_rec_ID=True)
     if rec is None:
       print("Record not found :<")
       return
