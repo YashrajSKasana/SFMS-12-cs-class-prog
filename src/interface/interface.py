@@ -15,6 +15,7 @@ class Interface:
       "Quit",
       "See Your Fee Detalis",
       "Get Recipt",
+      "Pay Fee"
       "Admin Options"
     ]
     self.admin_menu_options = [
@@ -35,7 +36,8 @@ class Interface:
       "remove student detalis":self.rm_student,
       "add admin":self.add_admin,
       "remove admin":self.rm_admin,
-      "save changes":self.db.save
+      "save changes":self.db.save,
+      "pay fee":self.db.pay_fee
     }
 
   @staticmethod
