@@ -3,4 +3,3 @@
 .vscode/
 .venv/
 **/__pycache__
-**/connection.json
