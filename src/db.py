@@ -125,47 +125,47 @@ class DB():
       for row, col in zip(head, rec):
         f.write(f"{row}: {col}\n")
 
-def pay_fee(self):
-  ti = 0
-  pk = "AdmissionNo"
-  table = self.tables[ti]
-
-  rec, rec_ID = self.get_record(ti, pk, get_rec_ID=True)
-  if rec is None:
-    print("Record not found :<")
-    return
-
-  head = self.get_head(ti)
-  get_feald = lambda col_name: rec[head.index(col_name)]
-
-  paidfee = get_feald("PaidFee")
-  duefee = get_feald("DueFee")
-
-  print(f"Paid Fee: {paidfee}")
-  print(f"Due Fee: {duefee}")
-  print(f"Total Fee: {paidfee + duefee}")
-  print()
-
-  feepaid = int(input("Enter the amount payed: "))
-
-  if feepaid > duefee:
-    print("The amount is more then the Due fee amount try again")
-    self.pay_fee()
-    return
-  elif feepaid < 0:
-    print("amount paid can not be negative try again :<")
-    self.pay_fee()
-    return
-
-  paidfee += feepaid
-  duefee -= feepaid
-
-  query = f"UPDATE `{table}` SET PaidFee=%s , DueFee=%s WHERE `{pk}`=%s"
-  self.cur.execute(query, [paidfee, duefee, rec_ID])
-
-  print("Record updated successfully :>")
-  print()
-  print(f"Paid Fee: {paidfee}")
-  print(f"Due Fee: {duefee}")
-  print(f"Total Fee: {paidfee + duefee}")
-  print()
+  def pay_fee(self):
+    ti = 0
+    pk = "AdmissionNo"
+    table = self.tables[ti]
+  
+    rec, rec_ID = self.get_record(ti, pk, get_rec_ID=True)
+    if rec is None:
+      print("Record not found :<")
+      return
+  
+    head = self.get_head(ti)
+    get_feald = lambda col_name: rec[head.index(col_name)]
+  
+    paidfee = get_feald("PaidFee")
+    duefee = get_feald("DueFee")
+  
+    print(f"Paid Fee: {paidfee}")
+    print(f"Due Fee: {duefee}")
+    print(f"Total Fee: {paidfee + duefee}")
+    print()
+  
+    feepaid = int(input("Enter the amount payed: "))
+  
+    if feepaid > duefee:
+      print("The amount is more then the Due fee amount try again")
+      self.pay_fee()
+      return
+    elif feepaid < 0:
+      print("amount paid can not be negative try again :<")
+      self.pay_fee()
+      return
+  
+    paidfee += feepaid
+    duefee -= feepaid
+  
+    query = f"UPDATE `{table}` SET PaidFee=%s , DueFee=%s WHERE `{pk}`=%s"
+    self.cur.execute(query, [paidfee, duefee, rec_ID])
+  
+    print("Record updated successfully :>")
+    print()
+    print(f"Paid Fee: {paidfee}")
+    print(f"Due Fee: {duefee}")
+    print(f"Total Fee: {paidfee + duefee}")
+    print()

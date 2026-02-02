@@ -12,8 +12,8 @@ def get_connetion_cred():
 
 def log_exception(exception):
   exception = str(exception)
-  time = str(dt.now())
-  file_name = EXCEPTIONS_LOG_DIR + time + ".txt"
+  time = dt.now().strftime("%Y-%m-%d_%H-%M-%S-%f")
+  file_name = rf"{EXCEPTIONS_LOG_DIR}{time}.txt"
   with open(file_name, 'w') as f:
     f.write(exception)
 
@@ -35,13 +35,14 @@ def main():
   db = DB(**connection_cred)
   ui = Interface(db)
   ui.run()
+
 if __name__ == "__main__":
   while True:
-    try:
-      main()
-    except Exception as e:
-      log_exception(e)
-      print("an exception occured please try again :<")
-      input("Retry: ")
-      continue
+#     try:
+    main()
+#     except Exception as e:
+#       log_exception(e)
+#       print("an exception occured please try again :<")
+#       input("Retry: ")
+#       continue
     break

@@ -15,8 +15,9 @@ class Interface:
       "Quit",
       "See Your Fee Detalis",
       "Get Recipt",
-      "Pay Fee"
-      "Admin Options"
+      "Pay Fee",
+      "Admin Options",
+      "Save Changes"
     ]
     self.admin_menu_options = [
       "Quit",
@@ -83,6 +84,7 @@ class Interface:
       self.LOGO()
 
       option = self.primary_menu_options[index]
+      print(option)
       func = self.option_func[option.lower()]
       func()
       input("Enter to go back: ")
