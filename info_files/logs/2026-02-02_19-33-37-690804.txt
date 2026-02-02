@@ -1,0 +1,1 @@
+1366 (HY000): Incorrect decimal value: 'ewfcds' for column 'PaidFee' at row 1

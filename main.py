@@ -38,11 +38,11 @@ def main():
 
 if __name__ == "__main__":
   while True:
-#     try:
-    main()
-#     except Exception as e:
-#       log_exception(e)
-#       print("an exception occured please try again :<")
-#       input("Retry: ")
-#       continue
+    try:
+      main()
+    except Exception as e:
+      log_exception(e)
+      print("an exception occured please try again :<")
+      input("Retry: ")
+      continue
     break
